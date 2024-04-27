@@ -1,7 +1,10 @@
+import Root from './components/Root';
+import './stylesheets/root.css';
+
 const App = () => (
-  <div>
+  <div className='app'>
     <div>RSVPEngine</div>
-    <button>Click me</button>
+    <Root />
   </div>
 );
 
