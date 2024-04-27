@@ -10,7 +10,9 @@ eventController.createEvent = async (req, res, next) => {
       endTime: req.body.endTime,
       location: req.body.location,
       description: req.body.description,
+      attendees: req.body.attendeesArray,
     });
+    console.log(newEvent);
 
     const { _id: eventId } = newEvent;
 
@@ -25,5 +27,7 @@ eventController.createEvent = async (req, res, next) => {
     });
   }
 };
+
+// post request to add attendees to event, receive object with name/attendance status, add that to attendees array inside Mongo
 
 export default eventController;
