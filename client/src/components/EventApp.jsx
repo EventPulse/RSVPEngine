@@ -11,7 +11,8 @@ const EventApp = () => {
   const [attendees, setAttendees] = useState([
     { name: 'Ivan', response: 'Yes' },
     { name: 'Olivia', response: 'Yes' },
-  ]);
+  
+  ])
 
   const handleChange = (event) => {
     setAttendeeName(event.target.value);

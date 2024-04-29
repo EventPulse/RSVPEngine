@@ -174,22 +174,36 @@ label {
 }
 
 h1 {
-  margin: 3%;
+  margin: 2%;
 }
 
 .attendee {
- margin: 5px;
-  width: 45%;
-  height: 10%;
+ margin: 3px;
+ width: 50%;
+  height: 10%; 
   border: 2px solid black;
   color: black;
   text-align: justify;
+  font-size: 18px;
 }
 
+.attendees {
+    
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 40vh; 
+}  
+
+.name {
+    margin-left: 2%;
+}
 
 .resp {
     float: right;
     font-weight: 2px;
+    margin-right: 2%;
+    
 }
 
 
