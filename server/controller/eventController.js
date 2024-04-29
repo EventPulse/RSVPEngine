@@ -1,10 +1,14 @@
 import Event from '../model/eventModel.js'; // import eventSchema from eventModel
 
+// add request/methods to obj 'eventController'
 const eventController = {};
 
+// purpose: allows user to create an event and share URL link for others to RSVP
 eventController.createEvent = async (req, res, next) => {
   try {
-    console.log(req.body);
+    // console.log(req.body); // checking the request body
+
+    // see eventMode.js for Event schema (properties and required fields)
     const newEvent = await Event.create({
       eventName: req.body.eventName,
       startTime: req.body.startTime,
@@ -13,10 +17,12 @@ eventController.createEvent = async (req, res, next) => {
       description: req.body.description,
       attendees: req.body.attendeesArray,
     });
-    console.log(newEvent);
+    // console.log(newEvent);
 
+    // MongoDB will set unique id to newly created event (_id), which deconstruct below and label (eventId)
     const { _id: eventId } = newEvent;
 
+    // serve the eventId to front-end as an Object
     res.locals.eventId = { event: { eventId } };
 
     return next();
@@ -29,20 +35,20 @@ eventController.createEvent = async (req, res, next) => {
   }
 };
 
+// purpose: clicking/entering event URL makes the following GET request
 eventController.getEvent = async (req, res, next) => {
+  // deconstruct the eventId from request parameters
   const { eventId } = req.params;
-  console.log(eventId);
+  // console.log(eventId);
 
-  //use the eventID to query the database
-  //recieve back the entire event associated with the ID
+  // use the eventId to query the database (to find the event)
+  // expect response to include available data associated with eventId
   try {
     const requestedEvent = await Event.findOne({ _id: eventId });
-
-    console.log('requested Event', requestedEvent);
+    // console.log('requested Event', requestedEvent);
 
     res.locals.requestedEvent = requestedEvent;
-
-    console.log('res.locals', res.locals.requestedEvent);
+    // console.log('res.locals', res.locals.requestedEvent);
 
     return next();
   } catch (err) {
@@ -54,36 +60,25 @@ eventController.getEvent = async (req, res, next) => {
   }
 };
 
+// purpose of postEvent middleware: create a new attendee's response and add the response to array
 eventController.postEvent = async (req, res, next) => {
+  // deconstruct unique eventId from req param
   const { eventId } = req.params;
-  // const { eventName } = req.body;
-  const { name } = req.body;
-  const { response } = req.body;
 
-  // deconstruct the name/response from req.body
-
-  // create a new attendee response
-  // receive object with name/attendance response
-  // add that to attendees array inside Mongo
-
-  // findOne event at the id
-  // update that event (event.findOneAndUpdate) and reassign that attendee, and update res.locals
+  // deconstruct name and response from req body so we can update/push to attendees (see below)
+  const { name, response } = req.body;
 
   try {
+    // find specific event by id and update attendees property (see file eventModel.js for attendeeSchema)
     const requestedEvent = await Event.findOneAndUpdate(
       { _id: eventId },
       { $push: { attendees: { name, response } } },
-      { new: true },
+      { new: true }, // this option (true) returns document after update is applied
     );
-    // findOneAndUpdate,
-    // { _id : eventId },
-    // { attendees: revised list of attendees} // lookup docs on how to add responses to array
-
-    console.log('requested Event', requestedEvent);
+    // console.log('requested Event', requestedEvent);
 
     res.locals.requestedEvent = requestedEvent;
-
-    console.log('res.locals', res.locals.requestedEvent);
+    // console.log('res.locals', res.locals.requestedEvent);
 
     return next();
   } catch (err) {

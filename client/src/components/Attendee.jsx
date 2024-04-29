@@ -1,7 +1,7 @@
 const Attendee = ({ name, response }) => (
   <div className='attendee'>
-    <div>{name}</div>
-    <div>{response}</div>
+    <div className='name'>{name}</div>
+    <div className='resp'>{response}</div>
   </div>
 );
 

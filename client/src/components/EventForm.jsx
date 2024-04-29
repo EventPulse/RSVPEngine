@@ -1,5 +1,6 @@
 import PrimaryButton from './PrimaryButton';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const EventForm = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,8 @@ const EventForm = () => {
     location: '',
     description: '',
   });
+
+  const [showLink, setShowLink] = useState(false);
 
   const [eventId, setEventId] = useState('');
 
@@ -23,10 +26,13 @@ const EventForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (formData.eventName.length === 0 || !formData.startTime) {
+      return;
+    }
     const data = {
       eventName: formData.eventName,
       startTime: new Date(formData.startTime).toISOString(),
-      endTime: new Date(formData.endTime).toISOString(),
+      endTime: formData.endTime ? new Date(formData.endTime).toISOString() : '',
       location: formData.location,
       description: formData.description,
       attendees: [],
@@ -40,7 +46,10 @@ const EventForm = () => {
       body: JSON.stringify(data),
     })
       .then((data) => data.json())
-      .then((res) => console.log(setEventId(res.event.eventId)))
+      .then((res) => {
+        setEventId(res.event.eventId);
+        setShowLink(true);
+      })
       .catch(() => console.log('error creating new event'));
   };
 
@@ -100,6 +109,7 @@ const EventForm = () => {
         />
         <PrimaryButton text={'Create event'} />
       </form>
+      <div>{showLink && <Link to={`e/${eventId}`}>Event Link</Link>}</div>
     </div>
   );
 };
