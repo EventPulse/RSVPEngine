@@ -7,27 +7,22 @@ export async function loader({ params }) {
   const { eventId } = params;
   return fetch(`/api/event/${eventId}`)
     .then((data) => data.json())
-    .then((response) => {
-      console.log(response);
-      return response;
-    })
+    .then((response) => response)
     .catch((err) => console.log('error retrieving event info', err));
 }
 
 const EventApp = () => {
-  const { eventInfo } = useLoaderData();
-  const [eventName, setEventName] = useState('Event name');
-  const [startTime, setStartTime] = useState('startTime');
-  const [endTime, setEndTime] = useState('endTime');
-  const [location, setLocation] = useState('location');
-  const [description, setDescription] = useState('description');
+  const eventInfo = useLoaderData();
+  const [eventId] = useState(eventInfo._id.toString());
+  const [eventName, setEventName] = useState(eventInfo.eventName || '');
+  const [startTime, setStartTime] = useState(new Date(eventInfo.startTime).toLocaleString() || '');
+  const [endTime, setEndTime] = useState(new Date(eventInfo.endTime).toLocaleString() || '');
+  const [location, setLocation] = useState(eventInfo.location || '');
+  const [description, setDescription] = useState(eventInfo.description || '');
   const [attendeeName, setAttendeeName] = useState('');
-  const [attendees, setAttendees] = useState([
-    { name: 'Ivan', response: 'Yes' },
-    { name: 'Olivia', response: 'Yes' },
-  ]);
+  const [attendees, setAttendees] = useState(eventInfo.attendees || []);
 
-  console.log(eventInfo);
+  // setEventName(eventInfo.eventName);
 
   const handleChange = (event) => {
     setAttendeeName(event.target.value);
@@ -35,15 +30,28 @@ const EventApp = () => {
 
   const handleClick = (event) => {
     if (attendeeName.length > 0) {
+      const data = {
+        name: attendeeName,
+        response: event.target.textContent,
+      };
       console.log(attendeeName);
       console.log(event.target.textContent); // Yes, No, Maybe
       setAttendeeName(''); // reset attendee name
       // make post request here
+      fetch(`/api/event/${eventId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((data) => data.json())
+        .then((res) => setAttendees(res.attendees));
     }
   };
 
   const attendeesList = attendees.map((person) => (
-    <Attendee name={person.name} response={person.response} />
+    <Attendee key={person._id.toString()} name={person.name} response={person.response} />
   ));
 
   return (

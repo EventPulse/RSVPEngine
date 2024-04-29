@@ -1,5 +1,5 @@
 import PrimaryButton from './PrimaryButton';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const EventForm = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +10,12 @@ const EventForm = () => {
     description: '',
   });
 
+  const [eventId, setEventId] = useState('');
+
+  useEffect(() => {
+    console.log(`event id is ${eventId}`);
+  }, [eventId]);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -18,15 +24,24 @@ const EventForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = {
-      event: {
-        eventName: formData.eventName,
-        startTime: new Date(formData.startTime),
-        endTime: new Date(formData.endTime),
-        location: formData.location,
-        description: formData.description,
-      },
+      eventName: formData.eventName,
+      startTime: new Date(formData.startTime).toISOString(),
+      endTime: new Date(formData.endTime).toISOString(),
+      location: formData.location,
+      description: formData.description,
+      attendees: [],
     };
-    console.log(data);
+    console.log('data to be sent:', data);
+    fetch('/api/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((data) => data.json())
+      .then((res) => console.log(setEventId(res.event.eventId)))
+      .catch(() => console.log('error creating new event'));
   };
 
   return (
