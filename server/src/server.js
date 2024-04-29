@@ -28,6 +28,16 @@ app.get('/', (req, res) => {
   res.sendFile(path.resolve('client/dist/index.html'));
 });
 
+app.use('/api/event', router);
+
+app.get('/api/event/:eventId', eventController.getEvent, (req, res) =>
+  res.status(200).send(res.locals.requestedEvent),
+);
+
+app.post('api/event/:eventId', eventController.postEvent, (req, res) =>
+  res.status(201).send(res.locals.eventId),
+);
+
 // Unknown route handler
 app.use('*', (req, res) => res.sendStatus(404).send('Page not found.'));
 
