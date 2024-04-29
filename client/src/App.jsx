@@ -1,6 +1,4 @@
 import { Outlet, Link } from 'react-router-dom';
-import './stylesheets/root.css';
-
 const App = () => (
   <div className='app'>
     <div>RSVPEngine</div>
