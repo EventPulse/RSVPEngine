@@ -1,7 +1,10 @@
+import { Outlet, Link } from 'react-router-dom';
 const App = () => (
-  <div>
+  <div className='app'>
     <div>RSVPEngine</div>
-    <button>Click me</button>
+    <div>
+      <Outlet />
+    </div>
   </div>
 );
 
