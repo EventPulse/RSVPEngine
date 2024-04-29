@@ -1,7 +1,21 @@
 import { useState } from 'react';
+import { useLoaderData } from 'react-router-dom';
 import Attendee from './Attendee.jsx';
 
+export async function loader({ params }) {
+  // make get request here
+  const { eventId } = params;
+  return fetch(`/api/event/${eventId}`)
+    .then((data) => data.json())
+    .then((response) => {
+      console.log(response);
+      return response;
+    })
+    .catch((err) => console.log('error retrieving event info', err));
+}
+
 const EventApp = () => {
+  const { eventInfo } = useLoaderData();
   const [eventName, setEventName] = useState('Event name');
   const [startTime, setStartTime] = useState('startTime');
   const [endTime, setEndTime] = useState('endTime');
@@ -13,6 +27,8 @@ const EventApp = () => {
     { name: 'Olivia', response: 'Yes' },
   ]);
 
+  console.log(eventInfo);
+
   const handleChange = (event) => {
     setAttendeeName(event.target.value);
   };
@@ -22,6 +38,7 @@ const EventApp = () => {
       console.log(attendeeName);
       console.log(event.target.textContent); // Yes, No, Maybe
       setAttendeeName(''); // reset attendee name
+      // make post request here
     }
   };
 

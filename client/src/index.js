@@ -5,6 +5,7 @@ import App from './App.jsx';
 import EventApp from './components/EventApp.jsx';
 import Root from './components/Root.jsx';
 import './stylesheets/styles.css';
+import { loader as eventLoader } from './components/EventApp.jsx';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'e/:eventId',
+        loader: eventLoader,
         element: <EventApp />,
       },
     ],
