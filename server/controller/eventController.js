@@ -4,6 +4,7 @@ const eventController = {};
 
 eventController.createEvent = async (req, res, next) => {
   try {
+    console.log(req.body);
     const newEvent = await Event.create({
       eventName: req.body.eventName,
       startTime: req.body.startTime,
@@ -16,7 +17,7 @@ eventController.createEvent = async (req, res, next) => {
 
     const { _id: eventId } = newEvent;
 
-    res.locals.eventId = { event: { eventId } }; // return URL upon event create
+    res.locals.eventId = { event: { eventId } };
 
     return next();
   } catch (err) {
@@ -52,11 +53,6 @@ eventController.getEvent = async (req, res, next) => {
     });
   }
 };
-
-// const attendeeSchema = new Schema({
-//   name: { type: String, required: true },
-//   response: { type: String },
-// });
 
 eventController.postEvent = async (req, res, next) => {
   const { eventId } = req.params;
@@ -98,14 +94,5 @@ eventController.postEvent = async (req, res, next) => {
     });
   }
 };
-
-// post request to add attendees to event, receive object with name/attendance status, add that to attendees array inside Mongo
-
-// when 2nd form loads, GET request to populate the page, when person responds, POST request
-
-// /api/event
-
-// get request when we send..
-// GET request > object with the event key and event id inside of it
 
 export default eventController;
