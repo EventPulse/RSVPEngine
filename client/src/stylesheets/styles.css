@@ -165,7 +165,7 @@ label {
 }
 
 .chooses {
-  margin: 5%;
+  margin: 2%;
   text-align: center;
 }
 
@@ -178,25 +178,31 @@ h1 {
 }
 
 .attendee {
+display: flex;
+ flex-direction: row;
+ flex-wrap: wrap;
+ justify-content: space-between;
  margin: 3px;
- width: 50%;
-  height: 10%; 
+ width: 45%;
+  height: 8%; 
   border: 2px solid black;
   color: black;
-  text-align: justify;
   font-size: 18px;
 }
 
 .attendees {
     
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
-    height: 40vh; 
+    justify-content: space-between;
 }  
 
 .name {
     margin-left: 2%;
+    width: 40%;
+    margin-bottom: 10px;
+
 }
 
 .resp {
