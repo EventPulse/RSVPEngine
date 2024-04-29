@@ -13,6 +13,7 @@ export default {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -48,10 +49,13 @@ export default {
     }),
   ],
   devServer: {
-    static: {
-      directory: path.resolve(__dirname, 'dist'),
-      publicPath: '/',
-    },
+    historyApiFallback: true,
+    static: [
+      {
+        directory: path.resolve('dist'),
+        publicPath: '/',
+      },
+    ],
     proxy: [
       {
         context: ['/api'],
