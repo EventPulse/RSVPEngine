@@ -199,14 +199,15 @@ display: flex;
 }  
 
 .name {
-    margin-left: 2%;
+    margin-top: 2%;
     width: 40%;
-    margin-bottom: 10px;
+    font-size: 22px;
 
 }
 
 .resp {
-    float: right;
+    font-size: 20px;
+    margin-top: 2%;
     font-weight: 2px;
     margin-right: 2%;
     
