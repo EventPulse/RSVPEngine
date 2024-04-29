@@ -53,9 +53,18 @@ eventController.getEvent = async (req, res, next) => {
   }
 };
 
+// const attendeeSchema = new Schema({
+//   name: { type: String, required: true },
+//   response: { type: String },
+// });
+
 eventController.postEvent = async (req, res, next) => {
   const { eventId } = req.params;
-  console.log(eventId);
+  // const { eventName } = req.body;
+  const { name } = req.body;
+  const { response } = req.body;
+
+  // deconstruct the name/response from req.body
 
   // create a new attendee response
   // receive object with name/attendance response
@@ -65,7 +74,14 @@ eventController.postEvent = async (req, res, next) => {
   // update that event (event.findOneAndUpdate) and reassign that attendee, and update res.locals
 
   try {
-    const requestedEvent = await Event.findOne({ _id: eventId });
+    const requestedEvent = await Event.findOneAndUpdate(
+      { _id: eventId },
+      { $push: { attendees: { name, response } } },
+      { new: true },
+    );
+    // findOneAndUpdate,
+    // { _id : eventId },
+    // { attendees: revised list of attendees} // lookup docs on how to add responses to array
 
     console.log('requested Event', requestedEvent);
 
