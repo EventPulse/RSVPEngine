@@ -175,6 +175,24 @@ h1 {
   margin: 3%;
 }
 
+.attendee {
+ margin: 5px;
+  width: 45%;
+  height: 10%;
+  border: 2px solid black;
+  color: black;
+  text-align: justify;
+}
+
+
+.resp {
+    float: right;
+    font-weight: 2px;
+}
+
+
+
+
 .btn-hover {
   width: 100px;
   font-size: 16px;
@@ -236,3 +254,4 @@ h3 {
     justify-content: flex-start;
   }
 }
+
