@@ -116,7 +116,10 @@ label {
 h3 {
   padding-left: 0.5rem;
   font-size: 1.6rem;
+  font-weight: 600;
   color: var(--text-gray-700);
+  margin-top: 0;
+  margin-bottom: 1rem;
 }
 
 .date-time {

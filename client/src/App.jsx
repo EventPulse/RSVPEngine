@@ -1,10 +1,13 @@
-import Root from './components/Root';
+import { Outlet, Link } from 'react-router-dom';
 import './stylesheets/root.css';
 
 const App = () => (
   <div className='app'>
     <div>RSVPEngine</div>
-    <Root />
+    <div>
+      <Link to={`e/123`}>A link</Link>
+    </div>
+    <Outlet />
   </div>
 );
 
