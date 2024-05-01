@@ -24,7 +24,10 @@ app.get('/', (req, res) => {
 });
 
 // Unknown/404 route handler
-app.use('*', (req, res) => res.sendStatus(404).send('Page not found.'));
+app.use('*', (req, res) => {
+  console.log('404 error handler triggered.');
+  res.status(404).send('Page not found.');
+});
 
 // Global error handler
 app.use((err, req, res, next) => {
@@ -36,7 +39,7 @@ app.use((err, req, res, next) => {
   const errorObj = Object.assign({}, defaultErr, err);
   console.log(`Error Handling Middleware: ${errorObj.log}`);
   console.error(`Error details: ${err.message}`);
-  console.error(err.stack); // Log stack trace for more details
+  console.error(err.stack); // stack trace
   if (!res.headersSent) {
     return res.status(errorObj.status).json(errorObj.message);
   } else {
