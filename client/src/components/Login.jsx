@@ -18,7 +18,7 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('some link', {
+      const response = await fetch(`/api/savedEvents/${username}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'applcation/json',
@@ -28,13 +28,13 @@ export default function Login() {
           password,
         }),
       });
-      const user = await response.json(); // username will be move up to other components
+      const loggedIn = await response.json(); // response will be array of objects
       // some conditional to check if login was successful from backend
-      if ('user login successful') {
-        setUser(user);
+      if (loggedIn) {
+        await setUser(username);
         navigate('/form');
       } else {
-        ('Username and/or password incorrect');
+        console.log('Username and/or password incorrect');
       }
     } catch (err) {
       console.log(err);

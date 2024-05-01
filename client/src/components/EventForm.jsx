@@ -38,6 +38,7 @@ const EventForm = () => {
       location: formData.location,
       description: formData.description,
       attendees: [],
+      username: user,
     };
     console.log('data to be sent:', data);
     fetch('/api/create', {
