@@ -51,10 +51,12 @@
     "jest-environment-jsdom": "^29.7.0",
     "jest-puppeteer": "^10.0.1",
     "mini-css-extract-plugin": "^2.9.0",
+    "mongodb-memory-server": "^9.2.0",
     "nodemon": "^3.1.0",
     "prettier": "^3.2.5",
     "puppeteer": "^22.7.1",
     "react-test-renderer": "^18.3.1",
+    "supertest": "^7.0.0",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.0.4"

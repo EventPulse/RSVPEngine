@@ -16,6 +16,7 @@ module.exports = async () => {
       ...config,
       testEnvironment: 'node', // Node environment for backend tests
       testMatch: ['<rootDir>/__tests__/backend/**/*.js'], // Glob pattern to include all JS files in the backend tests directory
+      setupFilesAfterEnv: ['<rootDir>/backendTestSetup.cjs'], // Points to a setup file that will run before the tests
     };
   }
 
