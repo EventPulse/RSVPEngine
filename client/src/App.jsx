@@ -1,11 +1,16 @@
 import { Outlet, Link } from 'react-router-dom';
-const App = () => (
-  <div className='app'>
-    <div>RSVPEngine</div>
-    <div>
-      <Outlet />
+import React, { useState } from 'react';
+
+const App = () => {
+  const [user, setUser] = useState('');
+  return (
+    <div className='app'>
+      <div>RSVPEngine</div>
+      <div>
+        <Outlet context={[user, setUser]} />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default App;

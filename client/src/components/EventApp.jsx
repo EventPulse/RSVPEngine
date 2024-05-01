@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import Attendee from './Attendee.jsx';
+import { useOutletContext } from 'react-router-dom';
 
 export async function loader({ params }) {
   // make get request here
@@ -21,6 +22,7 @@ const EventApp = () => {
   const [description, setDescription] = useState(eventInfo.description || '');
   const [attendeeName, setAttendeeName] = useState('');
   const [attendees, setAttendees] = useState(eventInfo.attendees || []);
+  const [user, setUser] = useOutletContext();
 
   // setEventName(eventInfo.eventName);
 

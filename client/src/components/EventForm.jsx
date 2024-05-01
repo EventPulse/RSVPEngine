@@ -1,8 +1,10 @@
 import PrimaryButton from './PrimaryButton';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 
 const EventForm = () => {
+  const [user, setUser] = useOutletContext();
   const [formData, setFormData] = useState({
     eventName: '',
     startTime: '',
