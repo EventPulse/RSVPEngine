@@ -10,7 +10,8 @@
     "dev": "NODE_ENV=development webpack serve --config client/webpack.config.js --open",
     "build": "NODE_ENV=production webpack --config client/webpack.config.js",
     "lint": "eslint .",
-    "test": "jest --verbose"
+    "test:frontend": "TEST_ENV=frontend jest",
+    "test:backend": "TEST_ENV=backend jest"
   },
   "repository": {
     "type": "git",
@@ -22,9 +23,6 @@
     "url": "https://github.com/EventPulse/RSVPEngine/issues"
   },
   "homepage": "https://github.com/EventPulse/RSVPEngine#readme",
-  "jest": {
-    "testEnvironment": "jest-environment-jsdom"
-  },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.3",
     "dotenv": "^16.4.5",
