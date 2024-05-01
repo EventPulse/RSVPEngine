@@ -13,6 +13,10 @@ const port = process.env.PORT || 3000;
 app.use(express.static(path.resolve('client/dist')));
 app.use(express.json());
 
+app.get('/ping', (req, res) => {
+  res.status(200).send('pong');
+});
+
 app.use('/api', router); // direct requests with '/api' to router (see eventRoutes.js)
 
 app.get('/', (req, res) => {
@@ -30,10 +34,20 @@ app.use((err, req, res, next) => {
     message: { err: 'An error occurred' },
   };
   const errorObj = Object.assign({}, defaultErr, err);
-  console.log(errorObj.log);
-  return res.status(errorObj.status).json(errorObj.message);
+  console.log(`Error Handling Middleware: ${errorObj.log}`);
+  console.error(`Error details: ${err.message}`);
+  console.error(err.stack); // Log stack trace for more details
+  if (!res.headersSent) {
+    return res.status(errorObj.status).json(errorObj.message);
+  } else {
+    console.log('Attempt to send a response when headers already sent.');
+  }
 });
 
-app.listen(port, () => {
-  console.log(`Express server listening on port ${port}`);
-});
+if (process.env.TEST_ENV !== 'backend') {
+  app.listen(port, () => {
+    console.log(`Express server listening on port ${port}`);
+  });
+}
+
+export default app;

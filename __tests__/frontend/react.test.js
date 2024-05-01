@@ -1,19 +1,21 @@
 import React from 'react';
-import { Router } from 'react-router-dom';
+import { Router, Link } from 'react-router-dom';
 import { render, screen, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import App from '../client/src/App';
-import Attendee from '../client/src/components/Attendee';
-import EventApp from '../client/src/components/EventApp';
-import EventForm from '../client/src/components/EventForm';
-import PrimaryButton from '../client/src/components/PrimaryButton';
-import Root from '../client/src/components/Root';
+import App from '../../client/src/App.jsx';
+import Attendee from '../../client/src/components/Attendee';
+import EventApp from '../../client/src/components/EventApp';
+import EventForm from '../../client/src/components/EventForm';
+import PrimaryButton from '../../client/src/components/PrimaryButton';
+import Root from '../../client/src/components/Root';
 
 describe('Unit testing create events components', () => {
   let role;
+  let showLink;
   beforeEach(() => {
     render(<EventForm />);
     role = screen.getAllByRole('textbox');
+    showLink = false;
   });
   // TODO:
   // feel free to take out anything here just added them for now
@@ -42,21 +44,48 @@ describe('Unit testing create events components', () => {
     expect(role[2].value).toEqual('Some Description');
   });
 
-  // possibly integration testing
-  // it('Create event button generates a hyperlink', async () => {
-  //   const button = screen.getByRole('button');
-  //   await userEvent.click(button);
-  //   // some logic to check if hyperlink is not undefined
-  //   const hyperlink = screen.getByText('Event Link') ? true : false;
-  //   expect(hyperlink).toEqual(true);
-  // });
+  it('Create event button generates a link', async () => {
+    const button = screen.getByRole('button');
+    button.onclick = () => (showLink = true);
+    await userEvent.click(button);
+    // some logic to check if hyperlink is not undefined
+    if (showLink) render(<a>Event Link</a>);
+    const link = screen.getByText('Event Link') ? true : false;
+    expect(link).toEqual(true);
+  });
 });
 
 describe('Unit testing eventapp components', () => {
+  let eventName; // heading 0
+  let startTime; // heading 1
+  let endTime; // heading 1
+  let location; // heading 2
+  let description; // heading 3
+  // heading 4 is just text that will not be used
+  let attendeeName;
+  let attendees = [];
+  let headers;
+
+  // beforeEach(() => {
+  //   render(<EventApp />);
+  //   eventName = 'picnic';
+  //   startTime = '2024-04-30T18:36';
+  //   endTime = '2024-05-01T18:36';
+  //   location = 'nyc';
+  //   description = 'study date';
+  //   attendeeName = 'dannyphantom';
+  //   headers = getAllByRole('heading');
+  // });
   // TODO:
   // 2. test rendering date/time
   // 3. test updating name field
   // 4. test yes/no/maybe buttons
   // 5. test attendees list updating
   // 6. test Attendee response and name to match input
+  // xit('Event name matches user selection'),
+  //   () => {
+  //     expect(headers[0]).toHaveTextContent(`${eventName}`);
+  //   };
+
+  // xit('Date And Time matches user selection'), () => {};
 });
