@@ -1,6 +1,7 @@
 import request from 'supertest';
 import app from '../../server/src/server';
 
+// server health check test
 describe('GET /ping', () => {
   test('It should respond with pong', async () => {
     const response = await request(app).get('/ping');
@@ -9,8 +10,8 @@ describe('GET /ping', () => {
   });
 });
 
-// suite of tests related to events, route is /api/create
-describe('POST /api/create', () => {
+// suite of tests related to events
+describe('POST and GET /api/create', () => {
   let eventId;
 
   const data = {
@@ -22,12 +23,18 @@ describe('POST /api/create', () => {
     attendees: [],
   };
 
+  const attendeeData = {
+    name: 'John Doe',
+    response: 'Attending',
+  };
+
+  // test for creating a new event
   test('It should respond with a new event', async () => {
     // create an object to hold dummy test data
     const response = await request(app).post('/api/create').send(data);
     // verify the respond status is 201
     expect(response.statusCode).toBe(201);
-    // verify the respond body contains the eventId
+    // verify the response body contains the eventId
     expect(response.body.event).toHaveProperty('eventId');
     // verify that the eventId is defined
     expect(response.body.event.eventId).toBeDefined();
@@ -35,7 +42,17 @@ describe('POST /api/create', () => {
     eventId = response.body.event.eventId;
   });
 
-  test('GET /api/event/:eventId', async () => {
+  test('It should handle errors when creating an event with incomplete data', async () => {
+    const response = await request(app).post('/api/create').send({ eventName: 'Incomplete Event' });
+    console.log(response.body); // structure of the response body.
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toBe(
+      'Error occurred in eventController.createEvent. Check server log for details',
+    );
+  });
+
+  // test for getting an event by the id
+  test('It should get the data for an existing event', async () => {
     const response = await request(app).get(`/api/event/${eventId}`);
     expect(response.statusCode).toBe(200);
 
@@ -55,13 +72,20 @@ describe('POST /api/create', () => {
     expect(response.body.description).toBe('Test Description');
     expect(response.body.attendees).toEqual([]);
   });
+
+  test('It should add an attendee to an event', async () => {
+    const response = await request(app).post(`/api/event/${eventId}`).send(attendeeData);
+    expect(response.statusCode).toBe(201);
+    expect(response.body.attendees[0].name).toBe(attendeeData.name);
+    expect(response.body.attendees[0].response).toBe(attendeeData.response);
+  });
 });
 
-// describe('GET /api/event/:eventId', () =>)
-// test for creating a new event
-
-// test for getting an event by the id
-
-// test for adding an attendee to an event
-
-// test the 404 handler
+// Test for 404 Not Found handling
+describe('404 Not Found Handler', () => {
+  test('It should respond with 404 for non-existent routes', async () => {
+    const response = await request(app).get('/route-does-not-exist');
+    expect(response.statusCode).toBe(404);
+    expect(response.text).toBe('Page not found.');
+  });
+});
