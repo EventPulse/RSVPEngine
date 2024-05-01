@@ -34,3 +34,5 @@ if (rootElement) {
     </React.StrictMode>,
   );
 }
+
+export default router;
