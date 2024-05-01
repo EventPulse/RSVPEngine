@@ -10,6 +10,7 @@ eventController.createEvent = async (req, res, next) => {
 
     // see eventMode.js for Event schema (properties and required fields)
     const newEvent = await Event.create({
+      username: req.body.username,
       eventName: req.body.eventName,
       startTime: req.body.startTime,
       endTime: req.body.endTime,

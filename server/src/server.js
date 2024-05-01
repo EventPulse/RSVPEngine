@@ -3,6 +3,7 @@ import express from 'express';
 import 'dotenv/config';
 import connectDB from '../config/db.config.js';
 import router from '../routes/eventRoutes.js';
+import savedRouter from '../routes/savedRouter.js';
 
 connectDB(); // call and run connectDB func
 
@@ -15,6 +16,14 @@ app.use(express.json());
 
 app.get('/ping', (req, res) => {
   res.status(200).send('pong');
+});
+
+// direct requests with '/api/savedEvents/:username' to savedRouter (see savedRoutes.js)
+app.use('/api/savedEvents/:username', savedRouter, (req, res) => {
+  if (!res.locals.savedEvents) {
+    return res.status(404).send('No saved results found');
+  }
+  res.status(200).json(res.locals.savedEvents);
 });
 
 app.use('/api', router); // direct requests with '/api' to router (see eventRoutes.js)

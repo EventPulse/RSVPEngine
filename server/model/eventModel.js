@@ -10,6 +10,7 @@ const attendeeSchema = new Schema({
 
 // eventSchema purpose: create new events, only eventName and startTime are required fields
 const eventSchema = new Schema({
+  username: { type: String, required: true },
   eventName: { type: String, required: true },
   startTime: { type: Date, required: true },
   endTime: { type: Date },
