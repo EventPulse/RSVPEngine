@@ -22,6 +22,9 @@
     "url": "https://github.com/EventPulse/RSVPEngine/issues"
   },
   "homepage": "https://github.com/EventPulse/RSVPEngine#readme",
+  "jest": {
+    "testEnvironment": "jest-environment-jsdom"
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.3",
     "dotenv": "^16.4.5",
@@ -39,6 +42,7 @@
     "@babel/preset-react": "^7.24.1",
     "@eslint/js": "^9.1.1",
     "@testing-library/react": "^15.0.5",
+    "@testing-library/user-event": "^14.5.2",
     "babel-jest": "^29.7.0",
     "babel-loader": "^9.1.3",
     "css-loader": "^7.1.1",

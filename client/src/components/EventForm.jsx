@@ -78,6 +78,7 @@ const EventForm = () => {
               type='datetime-local'
               value={formData.startTime}
               onChange={handleChange}
+              role='date'
               required
             />
           </div>
@@ -89,6 +90,7 @@ const EventForm = () => {
               name='endTime'
               type='datetime-local'
               value={formData.endTime}
+              role='date'
               onChange={handleChange}
             />
           </div>
