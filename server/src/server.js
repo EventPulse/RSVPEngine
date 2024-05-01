@@ -3,7 +3,7 @@ import express from 'express';
 import 'dotenv/config';
 import connectDB from '../config/db.config.js';
 import router from '../routes/eventRoutes.js';
-import savedRouter from '../routes/savedRoutes.js';
+import savedRouter from '../routes/savedRouter.js';
 
 connectDB(); // call and run connectDB func
 

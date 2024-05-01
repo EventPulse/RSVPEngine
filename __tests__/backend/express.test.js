@@ -15,6 +15,7 @@ describe('POST and GET /api/create', () => {
   let eventId;
 
   const data = {
+    username: 'testUser',
     eventName: 'Test Event',
     startTime: new Date().toISOString(),
     endTime: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
