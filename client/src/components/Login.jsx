@@ -5,6 +5,7 @@ export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useOutletContext();
+  const navigate = useNavigate();
 
   const handleUsername = (e) => {
     setUsername(e.target.value);
@@ -13,12 +14,10 @@ export default function Login() {
     setPassword(e.target.value);
   };
 
-  const navigate = useNavigate();
-
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`/api/savedEvents/${username}`, {
+      const response = await fetch(`/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'applcation/json',
@@ -34,7 +33,7 @@ export default function Login() {
         await setUser(username);
         navigate('/form');
       } else {
-        console.log('Username and/or password incorrect');
+        alert('Username and/or password incorrect');
       }
     } catch (err) {
       console.log(err);
@@ -43,6 +42,7 @@ export default function Login() {
 
   return (
     <div>
+      <h1>Log In Page</h1>
       <form onSubmit={handleLogin}>
         <div>
           <label>Username: </label>
@@ -54,6 +54,13 @@ export default function Login() {
         </div>
         <button type='submit'>Login</button>
       </form>
+      <button
+        onClick={() => {
+          navigate('/signup');
+        }}
+      >
+        Sign Up
+      </button>
     </div>
   );
 }
