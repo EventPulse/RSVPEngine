@@ -56,9 +56,6 @@ const EventForm = () => {
   return (
     <div className='create-event-form' onSubmit={handleSubmit}>
       <form>
-        <div>
-          <h3>Create event</h3>
-        </div>
         <input
           className='input-lg'
           placeholder='Event name'

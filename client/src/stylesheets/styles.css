@@ -12,21 +12,6 @@
   box-sizing: border-box;
 }
 
-:root {
-  font-feature-settings:
-    'liga' 1,
-    'calt' 1; /* fix for Chrome */
-  --text-gray-700: rgb(55, 65, 81);
-  --text-gray-800: rgb(31, 41, 55);
-  --text-gray-900: rgb(17, 24, 39);
-  --text-gray-950: rgb(3, 7, 18);
-  --bg-slate-50: rgb(248, 250, 252);
-  --bg-slate-100: rgb(241, 245, 249);
-  --text-primary-1: var(--text-gray-800);
-  --bg-primary-1: var(--bg-slate-50);
-  --border-gray-200: hsl(0, 0, 20%);
-}
-
 html {
   background: rgb(131, 58, 180);
   background: linear-gradient(
@@ -38,14 +23,14 @@ html {
 }
 
 body {
+  background-image: url('../components/assets/OIP\ \(12\).jpeg');
+background-size: cover;
+          background-repeat: no-repeat;
+          height: 100vh;
   margin: 0;
-  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-primary-1);
-  /* background-color: var(--bg-primary-1); */
-  /* font-family: 'Inter', sans-serif; */
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -55,30 +40,39 @@ body {
 .main {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .containerDiv {
-  border: 3px solid black;
+  border: 3px solid rgb(0, 0, 0);
   height: 97vh;
   width: 100vh;
   text-align: center;
   border-radius: 2%;
   background-color: white;
+
 }
 
 .create-event-form {
+  height: 90vh;
+  width: 100vh;
   padding: 1rem;
   border: 2px solid black;
   border-radius: 0.375rem;
-  background-color: white;
-  box-shadow: 2px 2px 6px 6px rgba(211, 211, 211, 0.2);
+  background-color: black;
+  opacity: 0.8;
+  box-shadow: 2px 8px 10px 12px #9400d3;
   flex-basis: 420px;
   margin: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 form {
   display: flex;
   flex-direction: column;
+ width: 100%;
 }
 
 button {
@@ -98,7 +92,7 @@ button {
   box-shadow: 1px 1px 5px 1px hsl(0, 0%, 90%);
   border-radius: 0.375rem;
   font-weight: 500;
-  color: var(--text-gray-700);
+  color: black;
   display: block;
   padding-left: 0.875rem;
   padding-right: 0.875rem;
@@ -126,20 +120,6 @@ input {
   border: 1px solid rgba(211, 211, 211, 0.466);
   border-radius: 0.375rem;
   font-size: 0.875rem;
-}
-
-input {
-  /* Ivan's version */
-  border: 2px solid black;
-  width: 50%;
-  height: 6%;
-  font-size: 25px;
-  background-color: transparent;
-  border-radius: 50px;
-  -moz-transition: all 0.4s ease-in-out;
-  -o-transition: all 0.4s ease-in-out;
-  -webkit-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out;
 }
 
 input::placeholder {
@@ -269,4 +249,9 @@ h3 {
     flex-direction: column;
     justify-content: flex-start;
   }
+}
+
+.event0form {
+  width: 100%;
+
 }

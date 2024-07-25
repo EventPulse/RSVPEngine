@@ -4,6 +4,7 @@ import 'dotenv/config';
 import connectDB from '../config/db.config.js';
 import router from '../routes/eventRoutes.js';
 
+
 connectDB(); // call and run connectDB func
 
 const app = express();
