@@ -106,7 +106,7 @@ const EventForm = () => {
         />
         <PrimaryButton text={'Create event'} />
       </form>
-      <div>{showLink && <Link to={`e/${eventId}`}>Event Link</Link>}</div>
+      <div className='links'>{showLink && <Link className='linkk' to={`e/${eventId}`}>Event Link</Link>}</div>
     </div>
   );
 };
