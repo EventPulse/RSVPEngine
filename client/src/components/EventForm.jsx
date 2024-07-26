@@ -56,9 +56,6 @@ const EventForm = () => {
   return (
     <div className='create-event-form' onSubmit={handleSubmit}>
       <form>
-        <div>
-          <h3>Create event</h3>
-        </div>
         <input
           className='input-lg'
           placeholder='Event name'
@@ -109,7 +106,7 @@ const EventForm = () => {
         />
         <PrimaryButton text={'Create event'} />
       </form>
-      <div>{showLink && <Link to={`e/${eventId}`}>Event Link</Link>}</div>
+      <div className='links'>{showLink && <Link className='linkk' to={`e/${eventId}`}>Event Link</Link>}</div>
     </div>
   );
 };
